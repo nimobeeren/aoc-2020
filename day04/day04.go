@@ -10,7 +10,9 @@ var requiredFields = []string{"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"}
 
 func main() {
 	input, err := ioutil.ReadFile("input.txt")
-	if err != nil { panic("Could not read input")}
+	if err != nil {
+		panic("Could not read input")
+	}
 
 	passports := strings.Split(string(input), "\n\n")
 
@@ -19,13 +21,13 @@ func main() {
 		isValid := true
 
 		for _, field := range requiredFields {
-			if !strings.Contains(passport, field + ":") {
+			if !strings.Contains(passport, field+":") {
 				isValid = false
 				break
 			}
 		}
 
-		if (isValid) {
+		if isValid {
 			numValid++
 		}
 	}
