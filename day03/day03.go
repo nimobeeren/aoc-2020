@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	file, err := ioutil.ReadFile("input.txt")
+	input, err := ioutil.ReadFile("input.txt")
 	if err != nil {
 		panic("Could not read input file")
 	}
-	rows := strings.Fields(string(file))
+	rows := strings.Fields(string(input))
 
 	isTree := func(x, y int) bool {
 		row := rows[y]
