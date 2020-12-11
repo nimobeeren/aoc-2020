@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"strings"
 	"io/ioutil"
+	"strings"
 )
 
 func setCreate() map[rune]struct{} {
@@ -26,15 +26,34 @@ func main() {
 
 	groups := strings.Split(string(input), "\n\n")
 
-	numYesses := 0
+	numYesAny := 0
+	numYesAll := 0
 	for _, group := range groups {
-		groupYesQuestions := setCreate()
-		for _, question := range group {
-			if question == '\n' { continue }
-			setAdd(groupYesQuestions, question)
+		groupNumYesAny := 0
+		groupNumYesAll := 0
+		for _, question := range "abcdefghijklmnopqrstuvwxyz" {
+			if strings.ContainsRune(group, question) {
+				groupNumYesAny++
+			}
+
+			allAnsweredYes := func(question rune) bool {
+				for _, member := range strings.Split(group, "\n") {
+					if len(member) > 0 && !strings.ContainsRune(member, question) {
+						return false
+					}
+				}
+				return true
+			}
+
+			if allAnsweredYes(question) {
+				groupNumYesAll++
+			}
 		}
-		numYesses += setSize(groupYesQuestions)
+
+		numYesAny += groupNumYesAny
+		numYesAll += groupNumYesAll
 	}
 
-	fmt.Println(numYesses)
+	fmt.Println(numYesAny)
+	fmt.Println(numYesAll)
 }
